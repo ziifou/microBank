@@ -9,6 +9,4 @@ public class AccountsController {
     public String hello(){
         return "hello";
     }
-    //post method
-    pu
 }
