@@ -2,6 +2,7 @@ package com.sif.microserviceApp.controller;
 
 
 import com.sif.microserviceApp.constants.AccountsConstants;
+import com.sif.microserviceApp.dto.AccountsContactInfoDto;
 import com.sif.microserviceApp.dto.CustomerDto;
 import com.sif.microserviceApp.dto.ErrorResponseDto;
 import com.sif.microserviceApp.dto.ResponseDto;
@@ -26,8 +27,8 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @Tag(
-        name = "CRUD REST APIs for Accounts in EazyBank",
-        description = "CRUD REST APIs in EazyBank to CREATE, UPDATE, FETCH AND DELETE account details"
+        name = "CRUD REST APIs for Accounts in SifBank",
+        description = "CRUD REST APIs in SifBank to CREATE, UPDATE, FETCH AND DELETE account details"
 )
 @RestController
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -36,10 +37,10 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
-
+    private AccountsContactInfoDto accountsContactInfoDto;
     @Operation(
             summary = "Create Account REST API",
-            description = "REST API to create new Customer &  Account inside EazyBank"
+            description = "REST API to create new Customer &  Account inside SifBank"
     )
     @ApiResponses({
             @ApiResponse(
@@ -161,6 +162,13 @@ public class AccountsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 
 
