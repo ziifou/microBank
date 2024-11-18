@@ -1,6 +1,7 @@
 package com.sif.cards.controller;
 
 import com.sif.cards.constants.CardsConstants;
+import com.sif.cards.dto.CardsContactInfoDto;
 import com.sif.cards.dto.CardsDto;
 import com.sif.cards.dto.ErrorResponseDto;
 import com.sif.cards.dto.ResponseDto;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 public class CardsController {
 
     private ICardsService iCardsService;
-
+    private CardsContactInfoDto cardsContactInfoDto;
     @Operation(
             summary = "Create Card REST API",
             description = "REST API to create new Card inside SifBank"
@@ -159,6 +160,13 @@ public class CardsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardsContactInfoDto);
     }
 
 }
