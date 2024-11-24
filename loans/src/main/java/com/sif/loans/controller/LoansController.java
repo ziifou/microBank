@@ -2,6 +2,7 @@ package com.sif.loans.controller;
 
 import com.sif.loans.constants.LoansConstants;
 import com.sif.loans.dto.ErrorResponseDto;
+import com.sif.loans.dto.LoansContactInfoDto;
 import com.sif.loans.dto.LoansDto;
 import com.sif.loans.dto.ResponseDto;
 import com.sif.loans.service.ILoansService;
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoansController {
 
     private ILoansService iLoansService;
-
+    private LoansContactInfoDto loansContactInfoDto;
     @Operation(
             summary = "Create Loan REST API",
             description = "REST API to create new loan inside SifBank"
@@ -162,6 +163,13 @@ public class LoansController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(LoansConstants.STATUS_417, LoansConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(loansContactInfoDto);
     }
 
 }
