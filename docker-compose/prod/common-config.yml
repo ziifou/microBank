@@ -12,10 +12,16 @@ services:
           memory: 700m
     environment:
       SPRING_RABBITMQ_HOST: "rabbit"
+      DEFAULT_CONFIG_SERVER: "configserver:http://configserver:8071/"
 
   microservice-configserver-config:
     extends:
       service: microservice-base-config
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      DEFAULT_EUREKA_SERVER: "http://eurekaserver:8070/eureka/"
