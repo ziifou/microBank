@@ -105,7 +105,7 @@ services:
     image: "sifeddini/gatewayserver:v1"
     container_name: gatewayserver-ms
     ports:
-      - "9000:9000"
+      - "8072:8072"
     depends_on:
       configserver:
         condition: service_healthy
