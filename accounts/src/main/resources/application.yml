@@ -25,6 +25,21 @@ spring:
     port: 5672
     username: guest
     password: guest
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+        alphanumeric-ids:
+          enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      DemoClientgetDemo:
+        minimumNumberOfCalls: 69
+  timelimiter:
+    instances:
+      DemoClientgetDemo:
+        timeoutDuration: 10s
 management:
   endpoints:
     web:
