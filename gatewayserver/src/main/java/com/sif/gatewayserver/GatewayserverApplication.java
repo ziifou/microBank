@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @SpringBootApplication
@@ -24,6 +26,8 @@ public class GatewayserverApplication {
 								.addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
 								.circuitBreaker(c -> c.setName("ACCOUNTS-CB")
 										.setFallbackUri("forward:/fallback/contact-info"))
+								.retry(retryConfig -> retryConfig.setRetries(2).setMethods(HttpMethod.GET)
+										.setBackoff(Duration.ofMillis(200), Duration.ofSeconds(1), 3, true))
 						)
 						.uri("lb://ACCOUNTS"))
 				.route(p -> p
